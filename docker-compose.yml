@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+  api:
+    container_name: manitass_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: manitass/api
+    volumes:
+      - ".:/usr/src/app"
+    ports:
+      - "3000:3000"
+    restart: always
+    env_file:
+      - .env.development
+    depends_on:
+      - db
+    networks:
+      - backend
+
+  db:
+    container_name: manitass_db
+    restart: always
+    image: mysql:5.7
+    env_file:
+      - .env.development
+    ports:
+      - "3306:3306"
+    volumes:
+      - data-volume:/var/lib/mysql
+    networks:
+      - backend
+
+
+volumes:
+  data-volume:
+
+networks:
+  backend:
+    driver: bridge

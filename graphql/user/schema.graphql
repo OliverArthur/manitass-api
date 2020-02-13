@@ -1,0 +1,55 @@
+enum Occupation {
+  SCAFFOLDER,
+  BRICKLAYER,
+  CARPENTER,
+  ELECTRICIAN,
+  PLUMBER,
+  PAINTER_AND_DECORATOR,
+  LABOURER,
+  SHUTTERING_CARPENTER,
+  PIPE_LAYER
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  email: String
+  password: String
+  postcode: String
+  occupation: String
+  avatar: String
+  country: String
+  city: String
+  phone: String
+  isWorker: Boolean
+  isConfirmed: Boolean
+}
+
+type User {
+  id: Int!
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  postcode: String
+  occupation: String
+  avatar: String
+  country: String
+  city: String
+  phone: String
+  isWorker: Boolean,
+  isConfirmed: Boolean
+}
+
+type Query {
+  fetchUsers: [User]
+}
+
+type Mutation {
+  signUp(data: CreateUserInput): User
+}

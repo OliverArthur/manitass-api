@@ -1,0 +1,38 @@
+{
+  "name": "manitass-api",
+  "version": "1.0.0",
+  "description": "Main graphql api for the manitass organization",
+  "repository": "https://github.com/OliverArthur/manitass-api",
+  "scripts": {
+    "start": "node -r esm server.js",
+    "dev": "nodemon --exc npm run start"
+  },
+  "keywords": [
+    "API",
+    "GRAPHQL",
+    "NODE",
+    "EXPRESS"
+  ],
+  "author": "Oliver Arthur <oliverarthurnardi@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "2.10.0",
+    "bcryptjs": "2.4.3",
+    "body-parser": "1.19.0",
+    "dotenv": "8.2.0",
+    "esm": "3.2.25",
+    "express": "4.17.1",
+    "express-jwt": "5.3.1",
+    "graphql": "14.6.0",
+    "graphql-import": "1.0.0-beta.2",
+    "graphql-tools": "4.0.6",
+    "jsonwebtoken": "8.5.1",
+    "mysql2": "2.1.0",
+    "schemaglue": "4.0.4",
+    "sequelize": "5.21.4",
+    "slugify": "1.3.6"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.2"
+  }
+}
