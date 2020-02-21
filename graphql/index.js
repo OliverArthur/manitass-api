@@ -1,6 +1,9 @@
-import glue from 'schemaglue'
+const glue = require('schemaglue')
 
 const options = {
   js: '**/*.js'
 }
-export const { schema, resolver } = glue('graphql', options)
+
+const { schema, resolver } = glue('graphql', options)
+
+module.exports = { schema, resolver }

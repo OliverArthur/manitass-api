@@ -1,19 +1,21 @@
-import dotenv from 'dotenv'
+const dotenv = require('dotenv')
 dotenv.config()
 
-import jwt from 'express-jwt'
-import express from 'express'
-import bodyParser from 'body-parser'
-import { ApolloServer } from 'apollo-server-express'
-import { importSchema } from 'graphql-import'
-import { makeExecutableSchema } from 'graphql-tools'
+const jwt = require('express-jwt')
+const express = require('express')
+const bodyParser = require('body-parser')
+const { ApolloServer } = require('apollo-server-express')
+const { Schema } = require('graphql')
+const { makeExecutableSchema } = require('graphql-tools')
 
-import config from './config/config'
-import { resolver as resolvers, schema } from './graphql'
+const config = require('./config/config')
+const { resolver, schema } = require('./graphql')
+const models = require('./models')
 
 const PORT = config.app_port
 const HOST = config.app_host
 const app = express()
+const resolvers = resolver
 
 const autMiddleware = jwt({
   secret: config.secret,
@@ -38,7 +40,9 @@ const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   playground: true,
-  context: () => {}
+  context: {
+    models
+  }
 })
 
 server.applyMiddleware({ app })

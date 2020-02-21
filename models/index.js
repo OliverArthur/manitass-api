@@ -1,13 +1,11 @@
-import dotenv from 'dotenv'
-import fs from 'fs'
-import path from 'path'
-import Sequelize from 'sequelize'
-
-dotenv.config()
+const fs = require('fs')
+const path = require('path')
+const Sequelize = require('sequelize')
 
 const basename = path.basename(__filename)
-import config from '../config/config'
-export const db = {};
+const config = require('../config/config')
+
+const db = {};
 
 let sequelize;
 sequelize = new Sequelize(config.database, config.username, config.password, config)
@@ -30,3 +28,5 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize
+
+module.exports = db

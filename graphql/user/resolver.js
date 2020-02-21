@@ -1,7 +1,9 @@
-import { Query } from './user.query'
-import { Mutation } from './user.mutation'
+const { Query } = require('./user.query')
+const { Mutation } = require('./user.mutation')
 
-export const resolver = {
+const resolver = {
   Query: Query,
   Mutation: Mutation
 }
+
+module.exports = { resolver }
