@@ -1,7 +1,7 @@
-import dotenv from 'dotenv'
+const dotenv = require('dotenv')
 dotenv.config()
 
-const config = {
+module.exports = {
   'app_env': process.env.NODE_ENV,
   'app_port': process.env.APP_PORT,
   'app_host': process.env.APP_HOST,
@@ -14,5 +14,3 @@ const config = {
   "dialect": 'mysql',
   'operatorsAliases': false
 }
-
-export default config
