@@ -4,9 +4,9 @@ const Query = {
       const req = await models.User.findAll()
       return req
     } catch (error) {
-      console.log(error)
+      throw error
     }
   }
 }
 
-module.exports = { Query }
+module.exports = Query

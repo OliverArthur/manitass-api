@@ -30,7 +30,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       postcode: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       occupation: {
         type: Sequelize.ENUM,

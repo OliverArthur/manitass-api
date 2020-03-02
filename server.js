@@ -23,6 +23,7 @@ const autMiddleware = jwt({
 })
 
 app.use(autMiddleware)
+app.use(bodyParser.json())
 
 app.use((err, req, res, next) => {
   const errorObject = {
