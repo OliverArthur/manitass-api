@@ -2,6 +2,15 @@ const authenticated = require('../auth/authenticated')
 const db = require('../../models')
 
 const Query = {
+
+  /**
+   * @description get authenticated user information
+   *
+   * @param {*} _
+   * @param { Int } { id }
+   * @param { Object } context
+   * @returns Object
+   */
   async user(_, { id }, context) {
     const authorizedUser = authenticated(context)
     try {
@@ -18,6 +27,15 @@ const Query = {
       throw error
     }
   },
+
+  /**
+   * @description fetch all user
+   *
+   * @param {*} _
+   * @param { Object } args
+   * @param { Object } context
+   * @returns
+   */
   async fetchUsers (_, args, context) {
     try {
       const req = await db.User.findAll()

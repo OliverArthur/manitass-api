@@ -1,5 +1,12 @@
 const accessToken = require('../../helper/accessToken')
 
+/**
+ * @description function to verify if the
+ * user is authenticated or not
+ *
+ * @param { Object } context
+ * @returns Object
+ */
 function authenticated (context) {
   const authToken = context.req.headers.authorization
 

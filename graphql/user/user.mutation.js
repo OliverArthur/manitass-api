@@ -88,6 +88,14 @@ const Mutation = {
     }
   },
 
+  /**
+   * @description delete user account
+   *
+   * @param {*} _
+   * @param { Int } { id }
+   * @param { Object } context
+   * @returns null
+   */
   async deleteAccount(_, { id }, context) {
     try {
       const authorizedUser = await authenticated(context)
