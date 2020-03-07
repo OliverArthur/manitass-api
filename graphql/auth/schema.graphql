@@ -1,0 +1,6 @@
+directive @auth on FIELD_DEFINITION
+
+type AuthPayload {
+  token: String!
+  user: User!
+}

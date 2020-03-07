@@ -10,7 +10,7 @@ const { makeExecutableSchema } = require('graphql-tools')
 
 const config = require('./config/config')
 const { resolver, schema } = require('./graphql')
-const models = require('./models')
+const accessToken = require('./helper/accessToken')
 
 const PORT = config.app_port
 const HOST = config.app_host
@@ -23,6 +23,7 @@ const autMiddleware = jwt({
 })
 
 app.use(autMiddleware)
+app.use(bodyParser.json())
 
 app.use((err, req, res, next) => {
   const errorObject = {
@@ -40,9 +41,7 @@ const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   playground: true,
-  context: {
-    models
-  }
+  context: req => req
 })
 
 server.applyMiddleware({ app })
