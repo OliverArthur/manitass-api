@@ -10,4 +10,6 @@ const occupation = [
   'PIPE_LAYER'
 ]
 
-module.exports = { occupation }
+const accessToken = []
+
+module.exports = { occupation, accessToken }

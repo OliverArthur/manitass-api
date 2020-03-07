@@ -1,19 +1,13 @@
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
-class AccessToken {
-  static async isAuthenticated (context) {
-    try{
-      const Authorization = context.request.get('Authorization')
-      if (Authorization && Authorization.length) {
-        const token = await Authorization.replace('Bearer ', '')
-        const { id } = await jwt.verify(token, config.secret)
-        return id
-      }
-      throw new Error('Not authenticated')
-    } catch (error) {
-      throw new Error(error)
-    }
+
+function accessToken(token) {
+  const authToken = token.replace('Bearer ', '')
+  const id = jwt.verify(authToken, config.secret)
+  if (!token) {
+    throw new Error('Not authenticated')
   }
+  return id
 }
 
-module.exports = isAuthenticated
+module.exports = accessToken

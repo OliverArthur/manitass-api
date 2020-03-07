@@ -1,6 +1,9 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+
+const authenticated = require('../auth/authenticated')
 const config = require('../../config/config')
+const db = require('../../models')
 
 const Mutation = {
   /**
@@ -11,13 +14,13 @@ const Mutation = {
    * @param { Object } { models } object
    * @returns { token, object }
    */
-  async signUp(_, args, { models }) {
+  async signUp(_, args, context) {
     const firstName = args.input.email
     const lastName = args.input.email
     const email = args.input.email
     const password = args.input.password
     try {
-      const user = await models.User.findOne({
+      const user = await db.User.findOne({
         where: {
           email
         }
@@ -28,7 +31,7 @@ const Mutation = {
 
       const hashPassword = await bcrypt.hash(password, 12)
 
-      const newUser = await models.User.create({
+      const newUser = await db.User.create({
         firstName: args.input.email,
         lastName: args.input.email,
         email: args.input.email,
@@ -55,9 +58,9 @@ const Mutation = {
    * @param { models } { models } object
    * @returns { token, object }
    */
-  async login(_, { email, password }, { models }) {
+  async login(_, { email, password }, context) {
     try {
-      const user = await models.User.findOne({
+      const user = await db.User.findOne({
         where: {
           email
         }
@@ -79,6 +82,22 @@ const Mutation = {
       return {
         token,
         user
+      }
+    } catch (error) {
+      throw new Error(error)
+    }
+  },
+
+  async deleteAccount(_, { id }, context) {
+    try {
+      const authorizedUser = authenticated(context)
+      if (authorizedUser.authToken && authorizedUser.currentUser) {
+        const deletedUser = await db.User.destroy({
+          where: { id }
+        })
+        return deletedUser
+      } else {
+        throw new Error('You must be authenticated or authorized to delete this account')
       }
     } catch (error) {
       throw new Error(error)
