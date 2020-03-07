@@ -90,14 +90,14 @@ const Mutation = {
 
   async deleteAccount(_, { id }, context) {
     try {
-      const authorizedUser = authenticated(context)
-      if (authorizedUser.authToken && authorizedUser.currentUser) {
-        const deletedUser = await db.User.destroy({
-          where: { id }
+      const authorizedUser = await authenticated(context)
+      const userId = authorizedUser.currentUser.id
+      if (id === userId) {
+        return !!await db.User.destroy({
+          where: { id: userId }
         })
-        return deletedUser
       } else {
-        throw new Error('You must be authenticated or authorized to delete this account')
+        throw new Error('You must be an authorized user to delete this account')
       }
     } catch (error) {
       throw new Error(error)
