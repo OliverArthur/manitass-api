@@ -94,7 +94,7 @@ const Mutation = {
    * @param {*} _
    * @param { Int } { id }
    * @param { Object } context
-   * @returns null
+   * @returns Boolean
    */
   async deleteAccount(_, { id }, context) {
     try {
@@ -106,6 +106,42 @@ const Mutation = {
         })
       } else {
         throw new Error('You must be an authorized user to delete this account')
+      }
+    } catch (error) {
+      throw new Error(error)
+    }
+  },
+
+  /**
+   * @description update user details
+   *
+   * @param {*} _
+   * @param { Int, object } { id, input }
+   * @param { Object } context
+   * @returns Object
+   */
+  async updateUser(_, { id, input }, context) {
+    try {
+      const authorizedUser = await authenticated(context)
+      const userId = authorizedUser.currentUser.id
+      if (id === userId) {
+        return !!await db.User.update(
+          {
+            firstName: input.firstName,
+            lastName: input.lastName,
+            email: input.email,
+            postcode: input.postcode,
+            avatar: input.avatar,
+            country: input.country,
+            city: input.city,
+            phone: input.phone,
+            isWorker: input.isWorker,
+            isConfirmed: input.isConfirmed,
+          },
+          { where: { id: userId } }
+        )
+      } else {
+        throw new Error('You must be an authorized user to update this account')
       }
     } catch (error) {
       throw new Error(error)

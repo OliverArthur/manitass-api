@@ -47,12 +47,15 @@ type User {
 }
 
 type Query {
-  fetchUsers: [User] @auth
-  user(id: Int!): User @auth
+  fetchUsers: [User]
+  user(id: Int!): User
 }
 
 type Mutation {
+  # Account
   signUp(input: CreateUserInput): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  deleteAccount(id: Int!): User! @auth
+  deleteAccount(id: Int!): Boolean
+  # Profile
+  updateUser(id: Int!, input: UpdateUserInput): Boolean
 }
