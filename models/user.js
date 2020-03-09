@@ -36,7 +36,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM(CONSTANT.occupation)
     },
     avatar: DataTypes.STRING,
-    avatar: DataTypes.STRING,
     country: DataTypes.STRING,
     city: DataTypes.STRING,
     phone: DataTypes.STRING,
