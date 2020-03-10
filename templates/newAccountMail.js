@@ -1,6 +1,6 @@
 const config = require('../config/config')
 
-const newAccount = (email, user) => {
+const newAccountMail = (email, user) => {
   const text = `
     <div style="
       background-color:#FFC400;
@@ -67,4 +67,4 @@ const newAccount = (email, user) => {
   }
 }
 
-module.exports = newAccount
+module.exports = newAccountMail
