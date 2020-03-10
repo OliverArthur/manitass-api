@@ -22,5 +22,8 @@ module.exports = {
     'operatorsAliases': false
   },
   // MAIL settings
-  'mail': process.env.FROM_EMAIL
+  'mail_server': process.env.MAIL_SERVER,
+  'mail_port': process.env.MAIL_PORT,
+  'mail_user': process.env.FROM_EMAIL,
+  'mail_pass': process.env.MAIL_PASSWORD
 }

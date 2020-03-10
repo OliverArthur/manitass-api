@@ -1,6 +1,9 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+const Transport = require('../../helper/transporter')
+const newAccountMail = require('../../templates/newAccountMail')
+
 const authenticated = require('../auth/authenticated')
 const config = require('../../config/config')
 const db = require('../../models')
@@ -37,6 +40,8 @@ const Mutation = {
         email: args.input.email,
         password: hashPassword
       })
+
+      Transport.sendMail(newAccountMail(email, newUser))
 
       const payload = await ({ id: newUser.id })
       const token = jwt.sign(payload, config.secret, {
