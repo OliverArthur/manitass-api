@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 
 const Transport = require('../../helper/transporter')
 const newAccountMail = require('../../templates/newAccountMail')
+const deleteAccountMail = require('../../templates/deleteAccountMail')
 
 const authenticated = require('../auth/authenticated')
 const config = require('../../config/config')
@@ -105,7 +106,13 @@ const Mutation = {
     try {
       const authorizedUser = await authenticated(context)
       const userId = authorizedUser.currentUser.id
+      const user = await db.User.findOne({
+        where: {
+          id
+        }
+      })
       if (id === userId) {
+        Transport.sendMail(deleteAccountMail(user.email, user))
         return !!await db.User.destroy({
           where: { id: userId }
         })
